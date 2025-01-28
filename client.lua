@@ -3,13 +3,21 @@ function deletePlayerProps()
     local attachedEntities = {}
     local handBoneIndex = GetEntityBoneIndexByName(playerPed, "IK_R_Hand")
 
+    if handBoneIndex == -1 then
+        print("Failed to find the hand bone.")
+        return
+    end
+
     for object in EnumerateObjects() do
         if DoesEntityExist(object) and IsEntityAttachedToEntity(object, playerPed) then
             local boneCoords = GetWorldPositionOfEntityBone(playerPed, handBoneIndex)
             local objectCoords = GetEntityCoords(object)
+            local distance = #(boneCoords - objectCoords)
 
-            if #(boneCoords - objectCoords) < 0.2 then
+            if distance < 0.2 then
                 table.insert(attachedEntities, object)
+            else
+                print(string.format("Object too far from hand: distance = %.2f", distance))
             end
         end
     end
