@@ -33,7 +33,7 @@ function deletePlayerProps()
     end
 end
 
-RegisterCommand("removeprops", function()
+RegisterCommand("clearprops", function()
     deletePlayerProps()
 end)
 
