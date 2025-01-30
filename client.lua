@@ -1,25 +1,35 @@
 function deletePlayerProps()
     local playerPed = PlayerPedId()
     local attachedEntities = {}
-    local handBoneIndex = GetEntityBoneIndexByName(playerPed, "IK_R_Hand")
 
-    if handBoneIndex == -1 then
-        print("Failed to find the hand bone.")
+    local rightHandBoneIndex = GetEntityBoneIndexByName(playerPed, "IK_R_Hand")
+    local leftHandBoneIndex = GetEntityBoneIndexByName(playerPed, "IK_L_Hand")
+
+    if rightHandBoneIndex == -1 and leftHandBoneIndex == -1 then
+        print("Failed to find both hand bones.")
         return
     end
 
     for object in EnumerateObjects() do
         if DoesEntityExist(object) and IsEntityAttachedToEntity(object, playerPed) then
-            local boneCoords = GetWorldPositionOfEntityBone(playerPed, handBoneIndex)
             local objectCoords = GetEntityCoords(object)
-            local distance = #(boneCoords - objectCoords)
 
-            if distance < 0.2 then
-                table.insert(attachedEntities, object)
-            else
-                print(string.format("Object too far from hand: distance = %.2f", distance))
+            if rightHandBoneIndex ~= -1 then
+                local rightHandCoords = GetWorldPositionOfEntityBone(playerPed, rightHandBoneIndex)
+                if #(rightHandCoords - objectCoords) < 0.2 then
+                    table.insert(attachedEntities, object)
+                    goto continue
+                end
+            end
+
+            if leftHandBoneIndex ~= -1 then
+                local leftHandCoords = GetWorldPositionOfEntityBone(playerPed, leftHandBoneIndex)
+                if #(leftHandCoords - objectCoords) < 0.2 then
+                    table.insert(attachedEntities, object)
+                end
             end
         end
+        ::continue::
     end
 
     for _, object in ipairs(attachedEntities) do
@@ -29,25 +39,6 @@ function deletePlayerProps()
     end
 
     if #attachedEntities == 0 then
-        print("No props attached to the player's hand.")
+        print("No props attached to the player's hands.")
     end
-end
-
-RegisterCommand("clearprops", function()
-    deletePlayerProps()
-end)
-
-function EnumerateObjects()
-    return coroutine.wrap(function()
-        local handle, object = FindFirstObject()
-        local success
-        if not handle or handle == -1 then
-            return
-        end
-        repeat
-            coroutine.yield(object)
-            success, object = FindNextObject(handle)
-        until not success
-        EndFindObject(handle)
-    end)
 end
