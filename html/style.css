@@ -1,0 +1,76 @@
+body {
+    margin: 0; padding: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #3c2f1500, #1e160800);
+    font-family: 'Playpen Sans Thai', sans-serif;
+    color: #f8f1dc;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-image:
+      radial-gradient(circle at 25% 25%, rgba(255, 215, 0, 0.15), transparent 60%);
+  }
+
+  #ui-box {
+  position: fixed;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  background-color: #5c4227;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 12px #b88b4a;
+  width: 200px;
+  text-align: center;
+  border: 2px solid #b88b4a;
+  font-family: 'Playpen Sans Thai', sans-serif;
+  color: #f3d3a0;
+  }
+
+  #ui-box h2 {
+    margin: 0 0 18px 0;
+    font-size: 1.7rem;
+    color: #f5deb3;
+    text-shadow: 1.5px 1.5px 3px #3c2714;
+  }
+
+  button {
+    width: 100%;
+    background: linear-gradient(145deg, #d6a400, #8a6700);
+    border: none;
+    border-radius: 10px;
+    color: #fff7d1;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 10px 0;
+    margin: 8px 0;
+    box-shadow:
+      0 3px 6px rgba(0,0,0,0.6),
+      inset 0 0 5px rgba(255, 215, 0, 0.6);
+    cursor: pointer;
+    transition:
+      background 0.3s ease,
+      transform 0.15s ease,
+      box-shadow 0.25s ease;
+    font-family: 'Playpen Sans Thai', sans-serif;
+    letter-spacing: 0.05em;
+  }
+
+  button:hover {
+    background: linear-gradient(145deg, #ffca28, #b8860b);
+    box-shadow:
+      0 5px 10px rgba(255, 215, 0, 0.85),
+      inset 0 0 9px rgba(255, 235, 120, 0.9);
+    transform: scale(1.05);
+  }
+
+  button:active {
+    transform: scale(0.95);
+    box-shadow:
+      0 2px 4px rgba(255, 193, 7, 0.7),
+      inset 0 0 4px rgba(255, 180, 60, 0.8);
+  }
+
+  .hidden {
+    display: none !important;
+  }
