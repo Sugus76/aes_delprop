@@ -1,6 +1,6 @@
 local uiOpen = false
 
-print("^2[PROP MANAGER]^7 client.lua โหลดแล้ว")
+print("^2[PROP MANAGER]^7 client.lua Loading completed")
 
 RegisterCommand("propmenu", function()
     print("[PROP MANAGER] พิมพ์ /propmenu แล้ว")
@@ -12,14 +12,14 @@ RegisterCommand("propmenu", function()
 end)
 
 function openPropUI()
-    print("[PROP MANAGER] เปิด UI แล้ว")
+    print("[PROP MANAGER] Open UI now")
     SetNuiFocus(true, true)
     SendNUIMessage({ type = "open" })
     uiOpen = true
 end
 
 function closePropUI()
-    print("[PROP MANAGER] ปิด UI แล้ว")
+    print("[PROP MANAGER] Close the UI.")
     SetNuiFocus(false, false)
     SendNUIMessage({ type = "close" })
     uiOpen = false
@@ -31,7 +31,7 @@ RegisterNUICallback("closeUI", function(_, cb)
 end)
 
 RegisterNUICallback("deleteProp", function(_, cb)
-    print("[PROP MANAGER] รับคำสั่งลบ prop")
+    print("[PROP MANAGER] Receive command to delete prop")
     deletePlayerProps()
     cb("ok")
 end)
@@ -52,11 +52,11 @@ function deletePlayerProps()
     for _, object in ipairs(attachedEntities) do
         SetEntityAsMissionEntity(object, true, true)
         DeleteObject(object)
-        print("[PROP MANAGER] ลบ prop ที่อนุญาตแล้ว")
+        print("[PROP MANAGER] Remove allowed props")
     end
 
     if #attachedEntities == 0 then
-        print("[PROP MANAGER] ไม่มี prop ที่อนุญาตให้ลบ")
+        print("[PROP MANAGER] There is no prop that allows deletion.")
     end
 end
 
