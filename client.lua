@@ -81,9 +81,10 @@ function deletePlayerProps()
     end
 
     for _, object in ipairs(attachedEntities) do
+        local model = GetEntityModel(object)
+        log(string.format("^5[PROP MANAGER]^2 Removed allowed prop with model hash: %d", model))
         SetEntityAsMissionEntity(object, true, true)
         DeleteObject(object)
-        log("^5[PROP MANAGER]^2 Removed allowed prop")
     end
 
     if #attachedEntities == 0 then
